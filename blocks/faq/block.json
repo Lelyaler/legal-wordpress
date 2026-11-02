@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/faq",
+  "version": "1.0.0",
+  "title": "Legal FAQ & Schema.org Accordion",
+  "category": "legal-blocks",
+  "icon": "editor-help",
+  "description": "Accessible legal FAQ accordion with automated Schema.org FAQPage rich snippet generation.",
+  "keywords": [ "legal", "faq", "schema", "accordion", "seo" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Часто задаваемые вопросы"
+    },
+    "generateSchema": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}

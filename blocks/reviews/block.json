@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/reviews",
+  "version": "1.0.0",
+  "title": "Legal Client Testimonials",
+  "category": "legal-blocks",
+  "icon": "format-quote",
+  "description": "Client reviews and case outcomes carousel powered by Swiper slider.",
+  "keywords": [ "legal", "reviews", "testimonials", "swiper", "slider" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Отзывы наших доверителей"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Реальные истории успешной защиты интересов в суде и урегулирования сложных корпоративных споров."
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}

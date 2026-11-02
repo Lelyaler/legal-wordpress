@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/stats",
+  "version": "1.0.0",
+  "title": "Legal Trust Statistics",
+  "category": "legal-blocks",
+  "icon": "chart-bar",
+  "description": "Grid of key trust figures and statistics (years of practice, cases won, saved client capital).",
+  "keywords": [ "legal", "stats", "counter", "trust", "numbers" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "stats": {
+      "type": "array",
+      "default": [
+        { "number": "15+", "label": "Лет успешной практики" },
+        { "number": "98.4%", "label": "Выигранных судебных дел" },
+        { "number": "1 200+", "label": "Довольных доверителей" },
+        { "number": "2.8 млрд ₽", "label": "Сохраненных активов" }
+      ]
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}

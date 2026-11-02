@@ -1,0 +1,38 @@
+/*
+Theme Name: Legal Corporate Theme
+Theme URI: https://github.com/Lelyaler/legal-wordpress
+Author: Lelyaler
+Author URI: https://lelyaler.github.io/Portfolio/
+Description: Custom corporate WordPress theme for law firms, legal counsel, and consulting agencies with native Gutenberg blocks (Block API v3), accessible interactive components, and Schema.org FAQPage rich snippet generation.
+Version: 1.0.0
+Requires at least: 6.2
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: legal-wordpress
+Tags: custom-background, custom-menu, featured-images, full-width-template, theme-options, translation-ready, block-patterns, block-styles
+*/
+
+/* WordPress Core Alignment & Block Fallbacks */
+.alignwide {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignfull {
+  max-width: 100vw;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.entry-content {
+  width: 100%;
+}
+
+.legal-page-container {
+  padding-top: 100px;
+  padding-bottom: 80px;
+  min-height: calc(100vh - 200px);
+}

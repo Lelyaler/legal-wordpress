@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/process",
+  "version": "1.0.0",
+  "title": "Legal Working Process Timeline",
+  "category": "legal-blocks",
+  "icon": "list-view",
+  "description": "Step-by-step legal representation and case workflow timeline.",
+  "keywords": [ "legal", "process", "steps", "workflow", "timeline" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Этапы ведения вашего дела"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Прозрачный алгоритм работы от первичного правового анализа до фактического исполнения судебного решения."
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/hero",
+  "version": "1.0.0",
+  "title": "Legal Hero Consultation Banner",
+  "category": "legal-blocks",
+  "icon": "shield",
+  "description": "Hero banner with background imagery, trust highlights, and instant consultation call-to-action.",
+  "keywords": [ "legal", "hero", "lawyer", "consultation", "banner" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "badge": {
+      "type": "string",
+      "default": "Адвокатская практика с 2012 года"
+    },
+    "title": {
+      "type": "string",
+      "default": "Квалифицированная правовая защита"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Арбитражные споры, банкротство, сопровождение сделок и защита бизнеса в судах всех инстанций."
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Записаться на консультацию"
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}

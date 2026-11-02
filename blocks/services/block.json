@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "legal/services",
+  "version": "1.0.0",
+  "title": "Legal Practice Areas & Services",
+  "category": "legal-blocks",
+  "icon": "portfolio",
+  "description": "Grid of legal practices and consulting services with icons, descriptions, and consultation modal trigger.",
+  "keywords": [ "legal", "services", "practice", "law", "arbitration" ],
+  "textdomain": "legal-wordpress",
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Направления юридической практики"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Комплексная защита прав и законных интересов граждан и юридических лиц по ключевым отраслям права."
+    }
+  },
+  "editorScript": "legal-editor-blocks",
+  "render": "file:./render.php"
+}
