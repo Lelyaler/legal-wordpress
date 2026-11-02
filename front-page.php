@@ -17,11 +17,7 @@ if ( have_posts() ) :
 		the_post();
 		$content = trim( get_the_content() );
 		if ( ! empty( $content ) ) :
-			?>
-			<div class="legal-frontpage-content">
-				<?php the_content(); ?>
-			</div>
-			<?php
+			the_content();
 		else :
 			// Default template layout using the theme blocks
 			$theme_dir = get_template_directory();

@@ -10,24 +10,31 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-$stats = ! empty( $attributes['stats'] ) && is_array( $attributes['stats'] ) ? $attributes['stats'] : array(
-	array( 'number' => '15+', 'label' => 'Лет успешной практики' ),
-	array( 'number' => '98.4%', 'label' => 'Выигранных судебных дел' ),
-	array( 'number' => '1 200+', 'label' => 'Довольных доверителей' ),
-	array( 'number' => '2.8 млрд ₽', 'label' => 'Сохраненных активов' ),
-);
 ?>
 
 <section class="stats" id="stats">
-  <div class="container stats__container">
-    <div class="stats__grid">
-      <?php foreach ( $stats as $stat ) : ?>
-        <div class="stats__item">
-          <span class="stats__number"><?php echo esc_html( $stat['number'] ); ?></span>
-          <span class="stats__label"><?php echo esc_html( $stat['label'] ); ?></span>
-        </div>
-      <?php endforeach; ?>
+  <div class="container">
+    <div class="stats__grid reveal">
+      <div class="stat-card">
+        <div class="stat-card__number" data-target="14">14+</div>
+        <div class="stat-card__label"><?php esc_html_e( 'Лет юридической практики', 'legal-wordpress' ); ?></div>
+        <div class="stat-card__desc"><?php esc_html_e( 'Успешно защищаем интересы доверителей с 2012 года', 'legal-wordpress' ); ?></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__number" data-target="98.4">98.4%</div>
+        <div class="stat-card__label"><?php esc_html_e( 'Выигранных дел в судах', 'legal-wordpress' ); ?></div>
+        <div class="stat-card__desc"><?php esc_html_e( 'Достигаем поставленных целей на любой стадии процесса', 'legal-wordpress' ); ?></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__number" data-target="2.8">2.8 млрд ₽</div>
+        <div class="stat-card__label"><?php esc_html_e( 'Сохраненных активов', 'legal-wordpress' ); ?></div>
+        <div class="stat-card__desc"><?php esc_html_e( 'Предотвратили финансовые потери клиентов по всей РФ', 'legal-wordpress' ); ?></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__number" data-target="3500">3 500+</div>
+        <div class="stat-card__label"><?php esc_html_e( 'Успешных соглашений', 'legal-wordpress' ); ?></div>
+        <div class="stat-card__desc"><?php esc_html_e( 'Доверие физических лиц и ведущих предприятий', 'legal-wordpress' ); ?></div>
+      </div>
     </div>
   </div>
 </section>

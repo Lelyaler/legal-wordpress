@@ -10,22 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-?>
 
-<div class="container legal-page-container">
-  <?php
-  while ( have_posts() ) :
-    the_post();
-    ?>
-    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-      <div class="entry-content">
-        <?php the_content(); ?>
-      </div>
-    </article>
-    <?php
-  endwhile;
-  ?>
-</div>
+while ( have_posts() ) :
+	the_post();
+	the_content();
+endwhile;
 
-<?php
 get_footer();
