@@ -100,16 +100,18 @@ add_filter( 'block_categories_all', 'legal_block_categories', 10, 2 );
  * Register Legal Theme Native Gutenberg Blocks.
  */
 function legal_register_theme_blocks() {
+	$theme_dir = get_template_directory();
+	$script_ver = file_exists( $theme_dir . '/js/editor-blocks.js' ) ? filemtime( $theme_dir . '/js/editor-blocks.js' ) : LEGAL_VERSION;
+
 	wp_register_script(
 		'legal-editor-blocks',
 		get_template_directory_uri() . '/js/editor-blocks.js',
 		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
-		LEGAL_VERSION,
+		$script_ver,
 		true
 	);
 
-	$theme_dir = get_template_directory();
-	$blocks    = array( 'hero', 'stats', 'services', 'process', 'faq', 'reviews' );
+	$blocks = array( 'hero', 'stats', 'services', 'process', 'faq', 'reviews' );
 
 	foreach ( $blocks as $block ) {
 		$block_path = $theme_dir . '/blocks/' . $block;

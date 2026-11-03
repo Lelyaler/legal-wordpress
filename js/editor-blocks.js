@@ -13,7 +13,7 @@
 	const { registerBlockType } = wp.blocks;
 	const { createElement: el, Fragment } = wp.element;
 	const blockEditor = wp.blockEditor || wp.editor;
-	const { InspectorControls, RichText } = blockEditor;
+	const { InspectorControls, RichText, useBlockProps } = blockEditor;
 	const { PanelBody, TextControl, ToggleControl, TextareaControl } = wp.components;
 	const { __ } = wp.i18n;
 
@@ -34,10 +34,11 @@
 					fontWeight: '700',
 					letterSpacing: '0.8px',
 					textTransform: 'uppercase',
+					userSelect: 'none',
 				},
 			},
 			el('span', null, '⚖️ ' + badgeText),
-			el('span', { style: { opacity: 0.8, fontSize: '10px', textTransform: 'none' } }, hint || __('Кликните на любой текст для редактирования', 'legal-wordpress'))
+			el('span', { style: { opacity: 0.85, fontSize: '11px', textTransform: 'none' } }, hint || __('Кликните на текст для редактирования', 'legal-wordpress'))
 		);
 	};
 
@@ -45,7 +46,29 @@
 	registerBlockType('legal/hero', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const { badge, title, subtitle, description, buttonText } = attributes;
+			const badge = attributes.badge !== undefined ? attributes.badge : 'Адвокатская практика с 2012 года';
+			const title = attributes.title !== undefined ? attributes.title : 'Квалифицированная правовая защита';
+			const subtitle = attributes.subtitle !== undefined ? attributes.subtitle : 'Арбитражные споры, банкротство, сопровождение сделок и защита бизнеса в судах всех инстанций.';
+			const description = attributes.description !== undefined ? attributes.description : 'Профессиональная юридическая помощь по любым правовым вопросам. Наша команда опытных адвокатов обеспечивает качественное сопровождение, минимизирует риски и гарантирует надежную защиту ваших законных прав и активов в суде.';
+			const buttonText = attributes.buttonText !== undefined ? attributes.buttonText : 'Записаться на консультацию';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-hero',
+				style: {
+					border: '1px solid #1e3a8a',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+					boxShadow: '0 4px 14px rgba(11, 17, 32, 0.08)',
+				},
+			}) : {
+				style: {
+					border: '1px solid #1e3a8a',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
 
 			return el(
 				Fragment,
@@ -85,23 +108,15 @@
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #1e3a8a',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-							boxShadow: '0 4px 14px rgba(11, 17, 32, 0.08)',
-						},
-					},
-					blockHeader('Hero Banner', __('Прямое редактирование текста', 'legal-wordpress')),
+					blockProps,
+					blockHeader('Hero Banner', __('Кликните на любой текст для изменения', 'legal-wordpress')),
 					el(
 						'div',
 						{
 							style: {
 								backgroundColor: '#0b1120',
 								color: '#ffffff',
-								padding: '40px 30px',
+								padding: '36px 24px',
 								textAlign: 'center',
 							},
 						},
@@ -117,7 +132,8 @@
 								fontWeight: '800',
 								textTransform: 'uppercase',
 								letterSpacing: '1.5px',
-								marginBottom: '12px',
+								marginBottom: '10px',
+								cursor: 'text',
 							},
 						}),
 						el(RichText, {
@@ -130,7 +146,8 @@
 								fontSize: '32px',
 								fontWeight: '800',
 								lineHeight: '1.2',
-								margin: '10px 0 16px',
+								margin: '8px 0 14px',
+								cursor: 'text',
 							},
 						}),
 						el(RichText, {
@@ -140,9 +157,10 @@
 							placeholder: __('Арбитражные споры, банкротство, защита бизнеса...', 'legal-wordpress'),
 							style: {
 								color: '#e2e8f0',
-								fontSize: '18px',
+								fontSize: '17px',
 								lineHeight: '1.4',
-								marginBottom: '14px',
+								marginBottom: '12px',
+								cursor: 'text',
 							},
 						}),
 						el(RichText, {
@@ -155,7 +173,8 @@
 								fontSize: '14px',
 								lineHeight: '1.6',
 								maxWidth: '700px',
-								margin: '0 auto 24px',
+								margin: '0 auto 20px',
+								cursor: 'text',
 							},
 						}),
 						el(
@@ -170,11 +189,12 @@
 									display: 'inline-block',
 									backgroundColor: '#1e3a8a',
 									color: '#ffffff',
-									padding: '12px 24px',
+									padding: '10px 20px',
 									borderRadius: '6px',
 									fontWeight: '700',
 									fontSize: '13px',
 									textTransform: 'uppercase',
+									cursor: 'text',
 								},
 							}),
 							el(
@@ -184,10 +204,11 @@
 										display: 'inline-block',
 										border: '1px solid rgba(255,255,255,0.4)',
 										color: '#ffffff',
-										padding: '12px 20px',
+										padding: '10px 18px',
 										borderRadius: '6px',
 										fontSize: '13px',
 										textTransform: 'uppercase',
+										opacity: 0.8,
 									},
 								},
 								__('Все услуги', 'legal-wordpress')
@@ -206,9 +227,40 @@
 	registerBlockType('legal/stats', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const { num1, label1, desc1, num2, label2, desc2, num3, label3, desc3, num4, label4, desc4 } = attributes;
+			const num1 = attributes.num1 !== undefined ? attributes.num1 : '14+';
+			const label1 = attributes.label1 !== undefined ? attributes.label1 : 'Лет юридической практики';
+			const desc1 = attributes.desc1 !== undefined ? attributes.desc1 : 'Успешно защищаем интересы доверителей с 2012 года';
 
-			const renderStatCard = (numKey, labelKey, descKey, defaultNum, defaultLabel, defaultDesc) => {
+			const num2 = attributes.num2 !== undefined ? attributes.num2 : '98.4%';
+			const label2 = attributes.label2 !== undefined ? attributes.label2 : 'Выигранных дел в судах';
+			const desc2 = attributes.desc2 !== undefined ? attributes.desc2 : 'Достигаем поставленных целей на любой стадии процесса';
+
+			const num3 = attributes.num3 !== undefined ? attributes.num3 : '2.8 млрд ₽';
+			const label3 = attributes.label3 !== undefined ? attributes.label3 : 'Сохраненных активов';
+			const desc3 = attributes.desc3 !== undefined ? attributes.desc3 : 'Предотвратили финансовые потери клиентов по всей РФ';
+
+			const num4 = attributes.num4 !== undefined ? attributes.num4 : '3 500+';
+			const label4 = attributes.label4 !== undefined ? attributes.label4 : 'Успешных соглашений';
+			const desc4 = attributes.desc4 !== undefined ? attributes.desc4 : 'Доверие физических лиц и ведущих предприятий';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-stats',
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			}) : {
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
+
+			const renderStatCard = (valNum, keyNum, valLabel, keyLabel, valDesc, keyDesc) => {
 				return el(
 					'div',
 					{
@@ -222,34 +274,37 @@
 					},
 					el(RichText, {
 						tagName: 'div',
-						value: attributes[numKey] || defaultNum,
-						onChange: (val) => setAttributes({ [numKey]: val }),
+						value: valNum,
+						onChange: (val) => setAttributes({ [keyNum]: val }),
 						style: {
 							color: '#1e3a8a',
 							fontSize: '28px',
 							fontWeight: '800',
 							marginBottom: '4px',
+							cursor: 'text',
 						},
 					}),
 					el(RichText, {
 						tagName: 'div',
-						value: attributes[labelKey] || defaultLabel,
-						onChange: (val) => setAttributes({ [labelKey]: val }),
+						value: valLabel,
+						onChange: (val) => setAttributes({ [keyLabel]: val }),
 						style: {
 							color: '#0b1120',
 							fontSize: '14px',
 							fontWeight: '700',
 							marginBottom: '6px',
+							cursor: 'text',
 						},
 					}),
 					el(RichText, {
 						tagName: 'div',
-						value: attributes[descKey] || defaultDesc,
-						onChange: (val) => setAttributes({ [descKey]: val }),
+						value: valDesc,
+						onChange: (val) => setAttributes({ [keyDesc]: val }),
 						style: {
 							color: '#64748b',
 							fontSize: '12px',
 							lineHeight: '1.4',
+							cursor: 'text',
 						},
 					})
 				);
@@ -266,56 +321,49 @@
 						{ title: __('Показатели и статистика', 'legal-wordpress'), initialOpen: true },
 						el(TextControl, {
 							label: __('Метрика 1 (Значение)', 'legal-wordpress'),
-							value: num1 || '14+',
+							value: num1,
 							onChange: (val) => setAttributes({ num1: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 1 (Подпись)', 'legal-wordpress'),
-							value: label1 || 'Лет юридической практики',
+							value: label1,
 							onChange: (val) => setAttributes({ label1: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 2 (Значение)', 'legal-wordpress'),
-							value: num2 || '98.4%',
+							value: num2,
 							onChange: (val) => setAttributes({ num2: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 2 (Подпись)', 'legal-wordpress'),
-							value: label2 || 'Выигранных дел в судах',
+							value: label2,
 							onChange: (val) => setAttributes({ label2: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 3 (Значение)', 'legal-wordpress'),
-							value: num3 || '2.8 млрд ₽',
+							value: num3,
 							onChange: (val) => setAttributes({ num3: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 3 (Подпись)', 'legal-wordpress'),
-							value: label3 || 'Сохраненных активов',
+							value: label3,
 							onChange: (val) => setAttributes({ label3: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 4 (Значение)', 'legal-wordpress'),
-							value: num4 || '3 500+',
+							value: num4,
 							onChange: (val) => setAttributes({ num4: val }),
 						}),
 						el(TextControl, {
 							label: __('Метрика 4 (Подпись)', 'legal-wordpress'),
-							value: label4 || 'Успешных соглашений',
+							value: label4,
 							onChange: (val) => setAttributes({ label4: val }),
 						})
 					)
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #cbd5e1',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-						},
-					},
+					blockProps,
 					blockHeader('Trust Statistics', __('Кликните на цифру или подпись для изменения', 'legal-wordpress')),
 					el(
 						'div',
@@ -328,10 +376,10 @@
 								gap: '16px',
 							},
 						},
-						renderStatCard('num1', 'label1', 'desc1', '14+', 'Лет юридической практики', 'Успешно защищаем интересы доверителей с 2012 года'),
-						renderStatCard('num2', 'label2', 'desc2', '98.4%', 'Выигранных дел в судах', 'Достигаем поставленных целей на любой стадии процесса'),
-						renderStatCard('num3', 'label3', 'desc3', '2.8 млрд ₽', 'Сохраненных активов', 'Предотвратили финансовые потери клиентов по всей РФ'),
-						renderStatCard('num4', 'label4', 'desc4', '3 500+', 'Успешных соглашений', 'Доверие физических лиц и ведущих предприятий')
+						renderStatCard(num1, 'num1', label1, 'label1', desc1, 'desc1'),
+						renderStatCard(num2, 'num2', label2, 'label2', desc2, 'desc2'),
+						renderStatCard(num3, 'num3', label3, 'label3', desc3, 'desc3'),
+						renderStatCard(num4, 'num4', label4, 'label4', desc4, 'desc4')
 					)
 				)
 			);
@@ -345,7 +393,25 @@
 	registerBlockType('legal/services', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const { title, subtitle } = attributes;
+			const title = attributes.title !== undefined ? attributes.title : 'Направления юридической практики';
+			const subtitle = attributes.subtitle !== undefined ? attributes.subtitle : 'Комплексная защита прав и законных интересов граждан и юридических лиц по ключевым отраслям права.';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-services',
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			}) : {
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
 
 			return el(
 				Fragment,
@@ -370,21 +436,14 @@
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #cbd5e1',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-						},
-					},
+					blockProps,
 					blockHeader('Practice Areas & Services', __('Редактирование заголовка и описания', 'legal-wordpress')),
 					el(
 						'div',
 						{
 							style: {
 								backgroundColor: '#ffffff',
-								padding: '30px 20px',
+								padding: '28px 20px',
 								textAlign: 'center',
 							},
 						},
@@ -395,6 +454,8 @@
 								fontWeight: '800',
 								textTransform: 'uppercase',
 								letterSpacing: '1.2px',
+								display: 'inline-block',
+								marginBottom: '4px',
 							},
 						}, __('Правовая практика', 'legal-wordpress')),
 						el(RichText, {
@@ -407,7 +468,8 @@
 								fontSize: '26px',
 								fontWeight: '800',
 								textTransform: 'uppercase',
-								margin: '8px 0 12px',
+								margin: '6px 0 10px',
+								cursor: 'text',
 							},
 						}),
 						el(RichText, {
@@ -419,8 +481,9 @@
 								color: '#64748b',
 								fontSize: '15px',
 								maxWidth: '750px',
-								margin: '0 auto 20px',
+								margin: '0 auto 18px',
 								lineHeight: '1.5',
+								cursor: 'text',
 							},
 						}),
 						el(
@@ -431,7 +494,7 @@
 									gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
 									gap: '12px',
 									textAlign: 'left',
-									marginTop: '20px',
+									marginTop: '16px',
 								},
 							},
 							['Банкротство граждан', 'Арбитражные споры', 'Сделки с недвижимостью', 'Защита бизнеса и активов', 'Налоговые споры', 'Корпоративное право'].map((s, idx) => {
@@ -464,20 +527,39 @@
 	registerBlockType('legal/process', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const {
-				title,
-				subtitle,
-				step1_title,
-				step1_desc,
-				step2_title,
-				step2_desc,
-				step3_title,
-				step3_desc,
-				step4_title,
-				step4_desc,
-			} = attributes;
+			const title = attributes.title !== undefined ? attributes.title : 'Этапы ведения вашего дела';
+			const subtitle = attributes.subtitle !== undefined ? attributes.subtitle : 'Прозрачный алгоритм работы от первичного правового анализа до фактического исполнения судебного решения.';
 
-			const renderStep = (num, titleKey, descKey, defTitle, defDesc) => {
+			const step1_title = attributes.step1_title !== undefined ? attributes.step1_title : 'Первичная консультация';
+			const step1_desc = attributes.step1_desc !== undefined ? attributes.step1_desc : 'Изучаем обстоятельства спора, анализируем документы, выявляем скрытые правовые риски.';
+
+			const step2_title = attributes.step2_title !== undefined ? attributes.step2_title : 'Стратегия и договор';
+			const step2_desc = attributes.step2_desc !== undefined ? attributes.step2_desc : 'Разрабатываем детальную правовую позицию, согласуем план действий и фиксируем стоимость.';
+
+			const step3_title = attributes.step3_title !== undefined ? attributes.step3_title : 'Досудебная стадия';
+			const step3_desc = attributes.step3_desc !== undefined ? attributes.step3_desc : 'Формируем мотивированную претензию, проводим переговоры со стороной оппонента.';
+
+			const step4_title = attributes.step4_title !== undefined ? attributes.step4_title : 'Защита в суде';
+			const step4_desc = attributes.step4_desc !== undefined ? attributes.step4_desc : 'Представляем ваши интересы во всех судебных заседаниях и инстанциях до победы.';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-process',
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			}) : {
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
+
+			const renderStep = (num, valTitle, keyTitle, valDesc, keyDesc) => {
 				return el(
 					'div',
 					{
@@ -498,24 +580,26 @@
 					}, num),
 					el(RichText, {
 						tagName: 'h4',
-						value: attributes[titleKey] || defTitle,
-						onChange: (val) => setAttributes({ [titleKey]: val }),
+						value: valTitle,
+						onChange: (val) => setAttributes({ [keyTitle]: val }),
 						style: {
 							fontSize: '15px',
 							fontWeight: '800',
 							color: '#0b1120',
 							margin: '0 0 6px',
+							cursor: 'text',
 						},
 					}),
 					el(RichText, {
 						tagName: 'p',
-						value: attributes[descKey] || defDesc,
-						onChange: (val) => setAttributes({ [descKey]: val }),
+						value: valDesc,
+						onChange: (val) => setAttributes({ [keyDesc]: val }),
 						style: {
 							fontSize: '13px',
 							color: '#64748b',
 							lineHeight: '1.4',
 							margin: 0,
+							cursor: 'text',
 						},
 					})
 				);
@@ -544,26 +628,19 @@
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #cbd5e1',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-						},
-					},
-					blockHeader('Working Process Timeline', __('Кликните на любой этап для изменения', 'legal-wordpress')),
+					blockProps,
+					blockHeader('Working Process Timeline', __('Кликните на любой этап для изменения текста', 'legal-wordpress')),
 					el(
 						'div',
 						{
 							style: {
 								backgroundColor: '#f8fafc',
-								padding: '28px 20px',
+								padding: '24px 20px',
 							},
 						},
 						el(
 							'div',
-							{ style: { textAlign: 'center', marginBottom: '20px' } },
+							{ style: { textAlign: 'center', marginBottom: '18px' } },
 							el(RichText, {
 								tagName: 'h2',
 								value: title,
@@ -574,7 +651,8 @@
 									fontWeight: '800',
 									color: '#0b1120',
 									textTransform: 'uppercase',
-									margin: '0 0 8px',
+									margin: '0 0 6px',
+									cursor: 'text',
 								},
 							}),
 							el(RichText, {
@@ -586,6 +664,7 @@
 									fontSize: '14px',
 									color: '#64748b',
 									margin: 0,
+									cursor: 'text',
 								},
 							})
 						),
@@ -598,10 +677,10 @@
 									gap: '14px',
 								},
 							},
-							renderStep('01', 'step1_title', 'step1_desc', 'Первичная консультация', 'Изучаем обстоятельства спора, анализируем документы, выявляем скрытые правовые риски.'),
-							renderStep('02', 'step2_title', 'step2_desc', 'Стратегия и договор', 'Разрабатываем детальную правовую позицию, согласуем план действий и фиксируем стоимость.'),
-							renderStep('03', 'step3_title', 'step3_desc', 'Досудебная стадия', 'Формируем мотивированную претензию, проводим переговоры со стороной оппонента.'),
-							renderStep('04', 'step4_title', 'step4_desc', 'Защита в суде', 'Представляем ваши интересы во всех судебных заседаниях и инстанциях до победы.')
+							renderStep('01', step1_title, 'step1_title', step1_desc, 'step1_desc'),
+							renderStep('02', step2_title, 'step2_title', step2_desc, 'step2_desc'),
+							renderStep('03', step3_title, 'step3_title', step3_desc, 'step3_desc'),
+							renderStep('04', step4_title, 'step4_title', step4_desc, 'step4_desc')
 						)
 					)
 				)
@@ -616,20 +695,39 @@
 	registerBlockType('legal/faq', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const {
-				title,
-				generateSchema,
-				faq1_q,
-				faq1_a,
-				faq2_q,
-				faq2_a,
-				faq3_q,
-				faq3_a,
-				faq4_q,
-				faq4_a,
-			} = attributes;
+			const title = attributes.title !== undefined ? attributes.title : 'Часто задаваемые вопросы';
+			const generateSchema = attributes.generateSchema !== undefined ? attributes.generateSchema : true;
 
-			const renderFaqItem = (qKey, aKey, defQ, defA) => {
+			const faq1_q = attributes.faq1_q !== undefined ? attributes.faq1_q : 'Сколько стоит первичная консультация и что в неё входит?';
+			const faq1_a = attributes.faq1_a !== undefined ? attributes.faq1_a : 'Первичная правовая консультация дежурного юриста проводится бесплатно. Мы знакомимся с обстоятельствами ситуации, проводим экспресс-аудит документов, оцениваем судебные риски.';
+
+			const faq2_q = attributes.faq2_q !== undefined ? attributes.faq2_q : 'Даете ли вы гарантию 100% выигрыша судебного дела?';
+			const faq2_a = attributes.faq2_a !== undefined ? attributes.faq2_a : 'По закону об адвокатуре ни один адвокат в РФ не имеет права давать 100% гарантию судебного решения. Однако мы беремся только за дела с доказанной правовой перспективой (98.4% побед).';
+
+			const faq3_q = attributes.faq3_q !== undefined ? attributes.faq3_q : 'Как фиксируется цена и могут ли появиться скрытые доплаты?';
+			const faq3_a = attributes.faq3_a !== undefined ? attributes.faq3_a : 'Все условия фиксируются в официальном договоре. Стоимость услуг является окончательной и не подлежит увеличению в ходе процесса.';
+
+			const faq4_q = attributes.faq4_q !== undefined ? attributes.faq4_q : 'Обеспечивается ли тайна переданных документов и сведений?';
+			const faq4_a = attributes.faq4_a !== undefined ? attributes.faq4_a : 'Да, абсолютная конфиденциальность гарантирована Федеральным законом № 63-ФЗ «Об адвокатской деятельности и адвокатуре в РФ». Адвокатская тайна бессрочна.';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-faq',
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			}) : {
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
+
+			const renderFaqItem = (valQ, keyQ, valA, keyA) => {
 				return el(
 					'div',
 					{
@@ -651,12 +749,13 @@
 						},
 						el(RichText, {
 							tagName: 'div',
-							value: attributes[qKey] || defQ,
-							onChange: (val) => setAttributes({ [qKey]: val }),
+							value: valQ,
+							onChange: (val) => setAttributes({ [keyQ]: val }),
 							style: {
 								fontWeight: '700',
 								fontSize: '14px',
 								color: '#0b1120',
+								cursor: 'text',
 							},
 						})
 					),
@@ -670,12 +769,13 @@
 						},
 						el(RichText, {
 							tagName: 'div',
-							value: attributes[aKey] || defA,
-							onChange: (val) => setAttributes({ [aKey]: val }),
+							value: valA,
+							onChange: (val) => setAttributes({ [keyA]: val }),
 							style: {
 								fontSize: '13px',
 								color: '#334155',
 								lineHeight: '1.5',
+								cursor: 'text',
 							},
 						})
 					)
@@ -705,14 +805,7 @@
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #cbd5e1',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-						},
-					},
+					blockProps,
 					blockHeader('FAQ Accordion & Schema.org', __('Кликните на вопрос или ответ для редактирования', 'legal-wordpress')),
 					el(
 						'div',
@@ -724,7 +817,7 @@
 						},
 						el(
 							'div',
-							{ style: { textAlign: 'center', marginBottom: '18px' } },
+							{ style: { textAlign: 'center', marginBottom: '16px' } },
 							el(RichText, {
 								tagName: 'h2',
 								value: title,
@@ -736,6 +829,7 @@
 									color: '#0b1120',
 									textTransform: 'uppercase',
 									margin: '0 0 6px',
+									cursor: 'text',
 								},
 							}),
 							el('div', {
@@ -746,10 +840,10 @@
 								},
 							}, generateSchema ? '✓ Schema.org JSON-LD микроразметка активна' : '✕ Schema.org отключена')
 						),
-						renderFaqItem('faq1_q', 'faq1_a', 'Сколько стоит первичная консультация и что в неё входит?', 'Первичная правовая консультация дежурного юриста проводится бесплатно. Мы знакомимся с обстоятельствами ситуации, проводим экспресс-аудит документов, оцениваем судебные риски.'),
-						renderFaqItem('faq2_q', 'faq2_a', 'Даете ли вы гарантию 100% выигрыша судебного дела?', 'По закону об адвокатуре ни один адвокат в РФ не имеет права давать 100% гарантию судебного решения. Однако мы беремся только за дела с доказанной правовой перспективой (98.4% побед).'),
-						renderFaqItem('faq3_q', 'faq3_a', 'Как фиксируется цена и могут ли появиться скрытые доплаты?', 'Все условия фиксируются в официальном договоре. Стоимость услуг является окончательной и не подлежит увеличению в ходе процесса.'),
-						renderFaqItem('faq4_q', 'faq4_a', 'Обеспечивается ли тайна переданных документов и сведений?', 'Да, абсолютная конфиденциальность гарантирована Федеральным законом № 63-ФЗ «Об адвокатской деятельности и адвокатуре в РФ». Адвокатская тайна бессрочна.')
+						renderFaqItem(faq1_q, 'faq1_q', faq1_a, 'faq1_a'),
+						renderFaqItem(faq2_q, 'faq2_q', faq2_a, 'faq2_a'),
+						renderFaqItem(faq3_q, 'faq3_q', faq3_a, 'faq3_a'),
+						renderFaqItem(faq4_q, 'faq4_q', faq4_a, 'faq4_a')
 					)
 				)
 			);
@@ -763,7 +857,25 @@
 	registerBlockType('legal/reviews', {
 		edit: function (props) {
 			const { attributes, setAttributes } = props;
-			const { title, subtitle } = attributes;
+			const title = attributes.title !== undefined ? attributes.title : 'Что о нас говорят клиенты';
+			const subtitle = attributes.subtitle !== undefined ? attributes.subtitle : 'Опыт доверителей';
+
+			const blockProps = useBlockProps ? useBlockProps({
+				className: 'legal-editor-block legal-editor-reviews',
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			}) : {
+				style: {
+					border: '1px solid #cbd5e1',
+					borderRadius: '8px',
+					overflow: 'hidden',
+					margin: '16px 0',
+				},
+			};
 
 			return el(
 				Fragment,
@@ -788,14 +900,7 @@
 				),
 				el(
 					'div',
-					{
-						style: {
-							border: '1px solid #cbd5e1',
-							borderRadius: '8px',
-							overflow: 'hidden',
-							margin: '16px 0',
-						},
-					},
+					blockProps,
 					blockHeader('Client Testimonials Slider', __('Редактирование заголовка секции', 'legal-wordpress')),
 					el(
 						'div',
@@ -812,8 +917,10 @@
 								fontWeight: '800',
 								textTransform: 'uppercase',
 								letterSpacing: '1px',
+								display: 'inline-block',
+								marginBottom: '4px',
 							},
-						}, __('Опыт доверителей', 'legal-wordpress')),
+						}, subtitle),
 						el(RichText, {
 							tagName: 'h2',
 							value: title,
@@ -823,7 +930,8 @@
 								fontSize: '24px',
 								fontWeight: '800',
 								color: '#0b1120',
-								margin: '6px 0 16px',
+								margin: '4px 0 16px',
+								cursor: 'text',
 							},
 						}),
 						el(
