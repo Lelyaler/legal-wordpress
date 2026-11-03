@@ -49,10 +49,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="header__bottom">
       <div class="header__container container">
         <div class="header__logo">
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
-            <span class="logo__brand"><?php bloginfo( 'name' ); ?></span>
-            <span class="logo__desc"><?php bloginfo( 'description' ); ?></span>
-          </a>
+          <?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : ?>
+            <?php the_custom_logo(); ?>
+          <?php else : ?>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
+              <span class="logo__brand"><?php bloginfo( 'name' ); ?></span>
+              <span class="logo__desc"><?php bloginfo( 'description' ); ?></span>
+            </a>
+          <?php endif; ?>
         </div>
         <button class="burger" aria-label="Открыть меню" type="button">
           <span class="burger__item"></span>

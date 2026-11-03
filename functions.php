@@ -22,6 +22,15 @@ function legal_theme_setup() {
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 60,
+			'width'       => 200,
+			'flex-width'  => true,
+			'flex-height' => true,
+		)
+	);
+	add_theme_support(
 		'html5',
 		array(
 			'search-form',

@@ -36,3 +36,15 @@ Tags: custom-background, custom-menu, featured-images, full-width-template, them
   padding-bottom: 80px;
   min-height: calc(100vh - 200px);
 }
+
+.custom-logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-logo {
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  display: block;
+}
