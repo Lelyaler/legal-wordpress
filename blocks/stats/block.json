@@ -14,14 +14,53 @@
     "align": [ "wide", "full" ]
   },
   "attributes": {
-    "stats": {
-      "type": "array",
-      "default": [
-        { "number": "15+", "label": "Лет успешной практики" },
-        { "number": "98.4%", "label": "Выигранных судебных дел" },
-        { "number": "1 200+", "label": "Довольных доверителей" },
-        { "number": "2.8 млрд ₽", "label": "Сохраненных активов" }
-      ]
+    "num1": {
+      "type": "string",
+      "default": "14+"
+    },
+    "label1": {
+      "type": "string",
+      "default": "Лет юридической практики"
+    },
+    "desc1": {
+      "type": "string",
+      "default": "Успешно защищаем интересы доверителей с 2012 года"
+    },
+    "num2": {
+      "type": "string",
+      "default": "98.4%"
+    },
+    "label2": {
+      "type": "string",
+      "default": "Выигранных дел в судах"
+    },
+    "desc2": {
+      "type": "string",
+      "default": "Достигаем поставленных целей на любой стадии процесса"
+    },
+    "num3": {
+      "type": "string",
+      "default": "2.8 млрд ₽"
+    },
+    "label3": {
+      "type": "string",
+      "default": "Сохраненных активов"
+    },
+    "desc3": {
+      "type": "string",
+      "default": "Предотвратили финансовые потери клиентов по всей РФ"
+    },
+    "num4": {
+      "type": "string",
+      "default": "3 500+"
+    },
+    "label4": {
+      "type": "string",
+      "default": "Успешных соглашений"
+    },
+    "desc4": {
+      "type": "string",
+      "default": "Доверие физических лиц и ведущих предприятий"
     }
   },
   "editorScript": "legal-editor-blocks",

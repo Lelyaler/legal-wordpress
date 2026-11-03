@@ -94,11 +94,66 @@
 
 	// 2. Stats Block
 	registerBlockType('legal/stats', {
-		edit: function () {
-			return createBlockPreview(
-				'LEGAL THEME BLOCK',
-				'Ключевые показатели и статистика доверия',
-				'15+ лет практики • 98.4% побед в суде • 1 200+ доверителей • 2.8 млрд ₽ сохраненных активов'
+		edit: function (props) {
+			const { attributes, setAttributes } = props;
+			const { num1, label1, num2, label2, num3, label3, num4, label4 } = attributes;
+
+			return el(
+				Fragment,
+				null,
+				el(
+					InspectorControls,
+					null,
+					el(
+						PanelBody,
+						{ title: __('Показатели и статистика', 'legal-wordpress'), initialOpen: true },
+						el(TextControl, {
+							label: __('Метрика 1 (Значение)', 'legal-wordpress'),
+							value: num1 || '14+',
+							onChange: (val) => setAttributes({ num1: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 1 (Подпись)', 'legal-wordpress'),
+							value: label1 || 'Лет юридической практики',
+							onChange: (val) => setAttributes({ label1: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 2 (Значение)', 'legal-wordpress'),
+							value: num2 || '98.4%',
+							onChange: (val) => setAttributes({ num2: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 2 (Подпись)', 'legal-wordpress'),
+							value: label2 || 'Выигранных дел в судах',
+							onChange: (val) => setAttributes({ label2: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 3 (Значение)', 'legal-wordpress'),
+							value: num3 || '2.8 млрд ₽',
+							onChange: (val) => setAttributes({ num3: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 3 (Подпись)', 'legal-wordpress'),
+							value: label3 || 'Сохраненных активов',
+							onChange: (val) => setAttributes({ label3: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 4 (Значение)', 'legal-wordpress'),
+							value: num4 || '3 500+',
+							onChange: (val) => setAttributes({ num4: val }),
+						}),
+						el(TextControl, {
+							label: __('Метрика 4 (Подпись)', 'legal-wordpress'),
+							value: label4 || 'Успешных соглашений',
+							onChange: (val) => setAttributes({ label4: val }),
+						})
+					)
+				),
+				createBlockPreview(
+					'LEGAL THEME BLOCK',
+					'Ключевые показатели и статистика доверия',
+					(num1 || '14+') + ' ' + (label1 || 'Лет') + ' • ' + (num2 || '98.4%') + ' • ' + (num3 || '2.8 млрд ₽')
+				)
 			);
 		},
 		save: function () {
