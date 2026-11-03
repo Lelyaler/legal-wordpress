@@ -12,10 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $badge     = ! empty( $attributes['badge'] ) ? esc_html( $attributes['badge'] ) : esc_html__( 'Профессиональная правовая защита', 'legal-wordpress' );
-$title     = ! empty( $attributes['title'] ) ? esc_html( $attributes['title'] ) : esc_html__( 'Правовой Компас', 'legal-wordpress' );
-$subtitle  = ! empty( $attributes['subtitle'] ) ? esc_html( $attributes['subtitle'] ) : esc_html__( 'Надежная поддержка физических лиц и бизнеса', 'legal-wordpress' );
-$btn_text  = ! empty( $attributes['buttonText'] ) ? esc_html( $attributes['buttonText'] ) : esc_html__( 'Бесплатная консультация', 'legal-wordpress' );
-$theme_uri = get_template_directory_uri();
+$title       = ! empty( $attributes['title'] ) ? esc_html( $attributes['title'] ) : esc_html__( 'Правовой Компас', 'legal-wordpress' );
+$subtitle    = ! empty( $attributes['subtitle'] ) ? esc_html( $attributes['subtitle'] ) : esc_html__( 'Надежная поддержка физических лиц и бизнеса', 'legal-wordpress' );
+$description = ! empty( $attributes['description'] ) ? esc_html( $attributes['description'] ) : esc_html__( 'Профессиональная юридическая помощь по любым правовым вопросам. Наша команда опытных адвокатов обеспечивает качественное сопровождение, минимизирует риски и гарантирует надежную защиту ваших законных прав и активов в суде.', 'legal-wordpress' );
+$btn_text    = ! empty( $attributes['buttonText'] ) ? esc_html( $attributes['buttonText'] ) : esc_html__( 'Бесплатная консультация', 'legal-wordpress' );
+$theme_uri   = get_template_directory_uri();
 ?>
 
 <section class="intro" id="hero">
@@ -25,7 +26,7 @@ $theme_uri = get_template_directory_uri();
       <p class="intro__subtitle"><?php echo $subtitle; ?></p>
       <h1 class="intro__title"><?php echo $title; ?></h1>
       <p class="intro__text">
-        <?php esc_html_e( 'Профессиональная юридическая помощь по любым правовым вопросам. Наша команда опытных адвокатов обеспечивает качественное сопровождение, минимизирует риски и гарантирует надежную защиту ваших законных прав и активов в суде.', 'legal-wordpress' ); ?>
+        <?php echo $description; ?>
       </p>
       <div class="intro__actions">
         <button class="intro__button button" id="heroConsultationBtn" type="button">
